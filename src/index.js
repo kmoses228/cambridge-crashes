@@ -11,4 +11,6 @@ async function main() {
   console.log("Run complete");
 }
 
-main();
+exports.handler = main;
+
+// main();

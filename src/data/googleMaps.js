@@ -1,4 +1,4 @@
-import axios from "axios";
+import fetch from "node-fetch";
 
 class StaticMapsClient {
   constructor(apiKey) {
@@ -6,18 +6,16 @@ class StaticMapsClient {
   }
 
   async getStaticMap(markerLocation) {
-    return axios
-      .get(`https://maps.googleapis.com/maps/api/staticmap`, {
-        params: {
+    return fetch(
+      "https://maps.googleapis.com/maps/api/staticmap?" +
+        new URLSearchParams({
           style: "feature:poi|visibility:off",
           markers: `color:red|${markerLocation}`,
           zoom: 16,
           size: "640x640",
           key: this.apiKey,
-        },
-        responseType: "arraybuffer",
-      })
-      .then((response) => Buffer.from(response.data, "binary"));
+        })
+    ).then((response) => response.buffer());
   }
 }
 

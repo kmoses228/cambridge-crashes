@@ -15,16 +15,16 @@ const postCrashes = async () => {
 
     console.log(`Fetching crash data since ${lastRunTime.Parameter.Value}`);
     const response = await fetchCrashes(lastRunTime.Parameter.Value);
-    console.log(`Got ${response.data.length} results.`);
+    console.log(`Got ${response.length} results.`);
 
-    if (response.data.length) {
+    if (response.length) {
       const twitterClient = new TwitterApi({
         appKey: secrets.twitter_app_key,
         appSecret: secrets.twitter_app_secret,
         accessToken: secrets.twitter_access_token,
         accessSecret: secrets.twitter_access_secret,
       });
-      for (const crash of response.data) {
+      for (const crash of response) {
         console.log(`Composing tweet...`);
 
         const crashLocation = getCrashLocation(crash);

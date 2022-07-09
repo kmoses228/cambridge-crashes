@@ -1,5 +1,8 @@
 import AWS from "aws-sdk";
-AWS.config.update({ region: "us-east-1" });
+
+if (!process.env.AWS_REGION) {
+  AWS.config.update({ region: "us-east-1" });
+}
 
 const SSM = new AWS.SSM();
 
