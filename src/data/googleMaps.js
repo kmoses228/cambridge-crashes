@@ -10,7 +10,7 @@ class StaticMapsClient {
       .get(`https://maps.googleapis.com/maps/api/staticmap`, {
         params: {
           style: "feature:poi|visibility:off",
-          markers: `color:red|1000 ${markerLocation}`,
+          markers: `color:red|${markerLocation}`,
           zoom: 16,
           size: "640x640",
           key: this.apiKey,

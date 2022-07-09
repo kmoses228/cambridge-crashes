@@ -27,19 +27,31 @@ const postCrashes = async () => {
       for (const crash of response.data) {
         console.log(`Composing tweet...`);
 
-        console.log("Fetching map");
-        const staticMapsClient = new StaticMapsClient(secrets.static_maps_key);
-        const mapImgBuffer = await staticMapsClient.getStaticMap(
-          `${getCrashLocation(crash)}, Cambridge, MA`
-        );
-        console.log("Uploading map");
-        const mediaId = await twitterClient.v1.uploadMedia(mapImgBuffer, {
-          mimeType: EUploadMimeType.Png,
-        });
+        const crashLocation = getCrashLocation(crash);
+        let mediaId;
+        if (crashLocation) {
+          console.log("Fetching map");
+          const staticMapsClient = new StaticMapsClient(
+            secrets.static_maps_key
+          );
+          const mapImgBuffer = await staticMapsClient.getStaticMap(
+            `${crashLocation}, Cambridge, MA`
+          );
+          console.log("Uploading map");
+          mediaId = await twitterClient.v1.uploadMedia(mapImgBuffer, {
+            mimeType: EUploadMimeType.Png,
+          });
+        }
+
         console.log("Sending tweet");
-        await twitterClient.v1.tweet(formatCrash(crash), {
-          media_ids: mediaId,
-        });
+        await twitterClient.v1.tweet(
+          formatCrash(crash),
+          mediaId
+            ? {
+                media_ids: mediaId,
+              }
+            : undefined
+        );
         console.log("Tweet sent successfully!");
       }
     } else {
