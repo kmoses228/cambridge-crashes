@@ -3,7 +3,6 @@ import { fetchCrashes } from "../data/openData.js";
 import { EUploadMimeType, TwitterApi } from "twitter-api-v2";
 import StaticMapsClient from "../data/googleMaps.js";
 import { formatCrash, getCrashLocation } from "../utils/crashes.js";
-import moment from "moment";
 
 const postCrashes = async () => {
   try {
@@ -54,12 +53,11 @@ const postCrashes = async () => {
         );
         console.log("Tweet sent successfully!");
       }
+      console.log("Updating last posted incident time");
+      setLastRunTime(response[response.length - 1].datetime);
     } else {
       console.log("Nothing to post");
     }
-
-    console.log("Updating last successful run time");
-    setLastRunTime(moment().toISOString().slice(0, -1));
   } catch (err) {
     console.error("Eror during postCrashes job:");
     console.error(err);

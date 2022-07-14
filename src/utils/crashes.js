@@ -4,6 +4,8 @@ export const getCrashLocation = (crash) => {
   let location = null;
   if (crash.address_number && crash.address_street) {
     location = `${crash.address_number} ${crash.address_street}`;
+  } else if (crash.address_street) {
+    location = crash.address_street;
   } else if (crash.intersection_street1 && crash.intersection_street2) {
     location = `${crash.intersection_street1} and ${crash.intersection_street2}`;
   }
