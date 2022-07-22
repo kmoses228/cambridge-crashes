@@ -53,8 +53,9 @@ const postCrashes = async () => {
         );
         console.log("Tweet sent successfully!");
       }
-      console.log("Updating last posted incident time");
-      setLastRunTime(response[response.length - 1].datetime);
+      console.log("Updating last posted incident time:", response[0].datetime);
+      await setLastRunTime(response[0].datetime);
+      console.log("Updated successfully");
     } else {
       console.log("Nothing to post");
     }
