@@ -23,7 +23,7 @@ const postCrashes = async () => {
         accessToken: secrets.twitter_access_token,
         accessSecret: secrets.twitter_access_secret,
       });
-      for (const crash of response.reverse()) {
+      for (const crash of [...response].reverse()) {
         console.log(`Composing tweet...`);
 
         const crashLocation = getCrashLocation(crash);
