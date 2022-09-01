@@ -46,14 +46,21 @@ export const formatCrash = (crash) => {
     } injured`;
   }
 
-  let hospitalizations = "";
+  let hospitalizations = ".";
   if (numHosp > 0) {
     hospitalizations = ` and ${numHosp} ${
       numHosp === 1 ? "person" : "people"
     } ${numHosp === 1 ? "was" : "were"} transported to the hospital.`;
   }
 
-  return `On ${crashTime.format("L")} at ${crashTime.format(
+  let emojis = "";
+  if (numCyclists > 0) {
+    emojis = "🚘💥🚲 ";
+  } else if (numPeds > 0) {
+    emojis = "🚘💥🚶 ";
+  }
+
+  return `${emojis}${crashTime.format("dddd L")} at ${crashTime.format(
     "LT"
-  )}, a motorist and ${victims} were involved in a collision${neighborhood} near ${location}. ${injuries}${hospitalizations}`;
+  )}:\nA motorist and ${victims} were involved in a collision${neighborhood} near ${location}. ${injuries}${hospitalizations}`;
 };
