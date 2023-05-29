@@ -48,7 +48,7 @@ const postCrashes = async () => {
           mediaId
             ? {
                 media: {
-                  media_ids: mediaId,
+                  media_ids: [mediaId],
                 },
               }
             : undefined
