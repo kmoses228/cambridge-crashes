@@ -43,7 +43,7 @@ const postCrashes = async () => {
         }
 
         console.log("Sending tweet");
-        await twitterClient.v1.tweet(
+        await twitterClient.v2.tweet(
           formatCrash(crash),
           mediaId
             ? {
